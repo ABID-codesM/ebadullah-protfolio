@@ -1,0 +1,223 @@
+/* =========================================
+   GLOBAL STARFIELD BACKGROUND (ADVANCED SMART ANIMATION)
+========================================= */
+
+body {
+  position: relative;
+  isolation: isolate;
+  background: #080b14;
+  overflow-x: hidden; /* د افقي سکرول مخه نیسي */
+}
+
+/* =========================================
+   STAR LAYER ONE (Small Distant Stars - Depth Layer)
+========================================= */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -20px; /* لږ لوی ترڅو د حرکت پر مهال خالي ځای راښکاره نشي */
+  z-index: 0;
+  pointer-events: none;
+  will-change: transform; /* د GPU په مرسته د انیمیشن چټکتیا */
+
+  background-image:
+    radial-gradient(
+      1px 1px at 5% 12%,
+      rgba(255, 255, 255, 0.9) 99%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 12% 35%,
+      rgba(99, 230, 245, 0.9) 99%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 20% 75%,
+      rgba(255, 255, 255, 0.8) 99%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 28% 18%,
+      rgba(255, 255, 255, 0.8) 99%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 36% 55%,
+      rgba(155, 140, 255, 0.9) 99%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 45% 85%,
+      rgba(255, 255, 255, 0.8) 99%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 53% 25%,
+      rgba(99, 230, 245, 0.8) 99%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 61% 68%,
+      rgba(255, 255, 255, 0.9) 99%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 70% 10%,
+      rgba(255, 255, 255, 0.8) 99%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 78% 42%,
+      rgba(155, 140, 255, 0.9) 99%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 86% 80%,
+      rgba(255, 255, 255, 0.8) 99%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 94% 25%,
+      rgba(99, 230, 245, 0.9) 99%,
+      transparent
+    );
+
+  background-size: 420px 420px;
+  opacity: 0.7;
+
+  /* د ستورو ورو، ریښتینی او دایره ای حرکت */
+  animation: starsDriftSmart 140s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+/* =========================================
+   STAR LAYER TWO (Bright Twinkling Stars - Foreground Layer)
+========================================= */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  will-change: opacity, transform;
+
+  background-image:
+    radial-gradient(2px 2px at 8% 22%, #ffffff 99%, transparent),
+    radial-gradient(
+      2px 2px at 18% 62%,
+      rgba(99, 230, 245, 0.95) 99%,
+      transparent
+    ),
+    radial-gradient(2px 2px at 31% 88%, #ffffff 99%, transparent),
+    radial-gradient(
+      2px 2px at 43% 35%,
+      rgba(155, 140, 255, 0.95) 99%,
+      transparent
+    ),
+    radial-gradient(2px 2px at 57% 12%, #ffffff 99%, transparent),
+    radial-gradient(
+      2px 2px at 68% 76%,
+      rgba(99, 230, 245, 0.95) 99%,
+      transparent
+    ),
+    radial-gradient(2px 2px at 79% 29%, #ffffff 99%, transparent),
+    radial-gradient(
+      2px 2px at 91% 61%,
+      rgba(155, 140, 255, 0.95) 99%,
+      transparent
+    );
+
+  background-size: 650px 650px;
+  opacity: 0.6;
+
+  /* د ستورو د روښانه کیدو او لامبو وهلو ترکیب */
+  animation:
+    starsTwinkleSmart 6s ease-in-out infinite alternate,
+    starsFloatSmart 90s linear infinite;
+}
+
+/* =========================================
+   ADVANCED SMART ANIMATIONS
+========================================= */
+
+/* 1. د لوی فضا نرم او دایره ای ډول حرکت */
+@keyframes starsDriftSmart {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  25% {
+    transform: translate3d(-20px, 15px, 0) scale(1.01);
+  }
+  50% {
+    transform: translate3d(-40px, 0, 0) scale(1.02);
+  }
+  75% {
+    transform: translate3d(-20px, -15px, 0) scale(1.01);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+/* 2. د ستورو ریښتینی روښانه کیدل (Twinkle) د اندازې سره یو ځای */
+@keyframes starsTwinkleSmart {
+  0% {
+    opacity: 0.2;
+    filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0));
+  }
+  50% {
+    opacity: 0.7;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
+  }
+  100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 4px rgba(99, 230, 245, 0.6));
+  }
+}
+
+/* 3. د شالید نرم ځوړند (Floating) حرکت */
+@keyframes starsFloatSmart {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100px 50px;
+  }
+  100% {
+    background-position: 200px 100px;
+  }
+}
+
+/* =========================================
+   ROOT CONTENT LAYER
+========================================= */
+#root {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  background: transparent;
+}
+
+/* =========================================
+   MOBILE OPTIMIZATION (RESPONSIVE)
+   په موبایل کې د بیټرۍ د ساتنې لپاره انیمیشنونه ورو او سپک دي
+========================================= */
+@media (max-width: 768px) {
+  body::before {
+    opacity: 0.4;
+    animation-duration: 200s; /* په موبایل کې ډېر ورو */
+  }
+  body::after {
+    opacity: 0.35;
+    animation-duration: 10s, 120s;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION (ACCESSIBILITY)
+========================================= */
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  body::after {
+    animation: none !important;
+  }
+}

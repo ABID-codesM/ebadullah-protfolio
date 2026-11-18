@@ -1,0 +1,661 @@
+/* ==============================
+   GLOBAL STYLES
+============================== */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+
+  background-color: var(--color-background);
+  background-image: var(--gradient-background);
+
+  color: var(--color-text);
+
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
+  line-height: 1.7;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  overflow-x: hidden;
+}
+
+/* ==============================
+   HEADINGS
+============================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+
+  color: var(--color-text);
+
+  font-family: var(--font-heading);
+  font-weight: var(--weight-bold);
+  line-height: 1.15;
+
+  letter-spacing: -0.035em;
+}
+
+/* ==============================
+   TEXT ELEMENTS
+============================== */
+
+p {
+  margin-top: 0;
+  color: var(--color-text-secondary);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+/* ==============================
+   SELECTION
+============================== */
+
+::selection {
+  color: var(--color-background);
+  background: var(--color-primary);
+}
+
+/* ==============================
+   SCROLLBAR
+============================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #273449;
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* ==============================
+   COMMON LAYOUT
+============================== */
+
+.container {
+  width: min(100% - (var(--container-padding) * 2), var(--container-width));
+
+  margin-inline: auto;
+}
+
+section {
+  position: relative;
+  width: 100%;
+}
+
+/*__________           22222________________*/
+/* =========================================
+   GLOBAL BASE
+========================================= */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+
+body {
+  position: relative;
+
+  margin: 0;
+  min-width: 320px;
+
+  background: #080b14;
+
+  color: var(--color-text);
+
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
+  line-height: 1.7;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  overflow-x: hidden;
+}
+
+/* =========================================
+   GLOBAL BACKGROUND LAYERS
+========================================= */
+
+/*
+  Layer 1:
+  Animated Aurora + Ambient Lights
+*/
+
+body::before {
+  content: "";
+
+  position: fixed;
+  inset: -30%;
+
+  z-index: 0;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse at 18% 18%,
+      rgba(99, 230, 245, 0.15),
+      transparent 32%
+    ),
+    radial-gradient(
+      ellipse at 82% 22%,
+      rgba(155, 140, 255, 0.14),
+      transparent 34%
+    ),
+    radial-gradient(
+      ellipse at 52% 55%,
+      rgba(99, 230, 245, 0.065),
+      transparent 38%
+    ),
+    radial-gradient(
+      ellipse at 90% 85%,
+      rgba(155, 140, 255, 0.09),
+      transparent 35%
+    ),
+    radial-gradient(
+      ellipse at 10% 90%,
+      rgba(99, 230, 245, 0.055),
+      transparent 32%
+    );
+
+  background-size: 160% 160%;
+
+  background-position: 0% 0%;
+
+  transform: translate3d(0, 0, 0);
+
+  animation:
+    auroraDrift 22s ease-in-out infinite alternate,
+    auroraPulse 12s ease-in-out infinite alternate;
+
+  will-change: transform, background-position;
+}
+
+/*
+  Layer 2:
+  Animated Technical Grid
+*/
+
+body::after {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  z-index: 0;
+
+  pointer-events: none;
+
+  background-image:
+    linear-gradient(rgba(99, 230, 245, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 230, 245, 0.035) 1px, transparent 1px);
+
+  background-size: 70px 70px;
+
+  background-position: 0 0;
+
+  opacity: 0.45;
+
+  mask-image: radial-gradient(ellipse at 50% 35%, black 0%, transparent 78%);
+
+  -webkit-mask-image: radial-gradient(
+    ellipse at 50% 35%,
+    black 0%,
+    transparent 78%
+  );
+
+  animation: gridDrift 35s linear infinite;
+}
+
+/* =========================================
+   ROOT CONTENT LAYER
+========================================= */
+
+#root {
+  position: relative;
+  z-index: 1;
+
+  min-height: 100vh;
+
+  background: transparent;
+}
+
+/* =========================================
+   AURORA MOVEMENT
+========================================= */
+
+@keyframes auroraDrift {
+  0% {
+    transform: translate3d(-2%, -1%, 0) scale(1);
+    background-position: 0% 0%;
+  }
+
+  25% {
+    transform: translate3d(1%, 2%, 0) scale(1.025);
+    background-position: 35% 25%;
+  }
+
+  50% {
+    transform: translate3d(2%, -1%, 0) scale(1.04);
+    background-position: 70% 55%;
+  }
+
+  75% {
+    transform: translate3d(-1%, 2%, 0) scale(1.025);
+    background-position: 40% 85%;
+  }
+
+  100% {
+    transform: translate3d(-2%, 1%, 0) scale(1.015);
+    background-position: 100% 100%;
+  }
+}
+
+/* =========================================
+   LIGHT INTENSITY PULSE
+========================================= */
+
+@keyframes auroraPulse {
+  0% {
+    opacity: 0.65;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.78;
+  }
+}
+
+/* =========================================
+   GRID MOVEMENT
+========================================= */
+
+@keyframes gridDrift {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 70px 70px;
+  }
+}
+
+/* =========================================
+   COMMON ELEMENTS
+========================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+
+  color: var(--color-text);
+
+  font-family: var(--font-heading);
+  font-weight: var(--weight-bold);
+
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+
+p {
+  margin-top: 0;
+
+  color: var(--color-text-secondary);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+/* =========================================
+   SELECTION
+========================================= */
+
+::selection {
+  color: var(--color-background);
+  background: var(--color-primary);
+}
+
+/* =========================================
+   SCROLLBAR
+========================================= */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #273449;
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* =========================================
+   COMMON LAYOUT
+========================================= */
+
+.container {
+  width: min(100% - (var(--container-padding) * 2), var(--container-width));
+
+  margin-inline: auto;
+}
+
+section {
+  position: relative;
+  width: 100%;
+}
+
+/* =========================================
+   MOBILE OPTIMIZATION
+========================================= */
+
+@media (max-width: 768px) {
+  body::before {
+    inset: -15%;
+
+    animation-duration: 28s, 15s;
+  }
+
+  body::after {
+    background-size: 55px 55px;
+
+    opacity: 0.3;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  body::before,
+  body::after {
+    animation: none !important;
+  }
+}
+/*____________________3_______________*/ /* =========================================
+   GLOBAL STARFIELD BACKGROUND
+========================================= */
+
+/* BACKGROUND BASE */
+
+body {
+  position: relative;
+  isolation: isolate;
+
+  background: #080b14;
+}
+
+/* =========================================
+   STAR LAYER ONE
+   Small Distant Stars
+========================================= */
+
+body::before {
+  content: "";
+
+  position: fixed;
+  inset: -10px;
+
+  z-index: 0;
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(
+      1px 1px at 5% 12%,
+      rgba(255, 255, 255, 0.9) 99%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 12% 35%,
+      rgba(99, 230, 245, 0.9) 99%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 20% 75%,
+      rgba(255, 255, 255, 0.8) 99%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 28% 18%,
+      rgba(255, 255, 255, 0.8) 99%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 36% 55%,
+      rgba(155, 140, 255, 0.9) 99%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 45% 85%,
+      rgba(255, 255, 255, 0.8) 99%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 53% 25%,
+      rgba(99, 230, 245, 0.8) 99%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 61% 68%,
+      rgba(255, 255, 255, 0.9) 99%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 70% 10%,
+      rgba(255, 255, 255, 0.8) 99%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 78% 42%,
+      rgba(155, 140, 255, 0.9) 99%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 86% 80%,
+      rgba(255, 255, 255, 0.8) 99%,
+      transparent
+    ),
+    radial-gradient(
+      1px 1px at 94% 25%,
+      rgba(99, 230, 245, 0.9) 99%,
+      transparent
+    );
+
+  background-size: 420px 420px;
+
+  opacity: 0.65;
+
+  /* نوی نرم او ورو انیمیشن د لوی فضا لپاره */
+  animation: starsDrift 120s linear infinite;
+}
+
+/* =========================================
+   STAR LAYER TWO
+   Bright Twinkling Stars
+========================================= */
+
+body::after {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  z-index: 0;
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(2px 2px at 8% 22%, #ffffff 99%, transparent),
+    radial-gradient(
+      2px 2px at 18% 62%,
+      rgba(99, 230, 245, 0.95) 99%,
+      transparent
+    ),
+    radial-gradient(2px 2px at 31% 88%, #ffffff 99%, transparent),
+    radial-gradient(
+      2px 2px at 43% 35%,
+      rgba(155, 140, 255, 0.95) 99%,
+      transparent
+    ),
+    radial-gradient(2px 2px at 57% 12%, #ffffff 99%, transparent),
+    radial-gradient(
+      2px 2px at 68% 76%,
+      rgba(99, 230, 245, 0.95) 99%,
+      transparent
+    ),
+    radial-gradient(2px 2px at 79% 29%, #ffffff 99%, transparent),
+    radial-gradient(
+      2px 2px at 91% 61%,
+      rgba(155, 140, 255, 0.95) 99%,
+      transparent
+    );
+
+  background-size: 650px 650px;
+
+  opacity: 0.5;
+
+  /* ریښتینی ټوټکۍ (Twinkle) او ورو خوځښت (Float) */
+  animation:
+    starsTwinkle 7s ease-in-out infinite alternate,
+    starsFloat 90s linear infinite;
+}
+
+/* =========================================
+   STAR ANIMATIONS (SMART & SMOOTH)
+========================================= */
+
+/* د ستورو نرم او ورو خوځښت (Drift) */
+@keyframes starsDrift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(-25px, 15px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* د ستورو ریښتینی روښانه کیدل او ماتیدل (Twinkle) */
+@keyframes starsTwinkle {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.02);
+  }
+}
+
+/* د شالید نرم ځوړند (Floating) حرکت */
+@keyframes starsFloat {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 120px 80px;
+  }
+}
+
+/* =========================================
+   ROOT CONTENT LAYER
+========================================= */
+
+#root {
+  position: relative;
+  z-index: 1;
+
+  min-height: 100vh;
+
+  background: transparent;
+}
+
+/* =========================================
+   MOBILE OPTIMIZATION (RESPONSIVE)
+========================================= */
+
+@media (max-width: 768px) {
+  body::before {
+    opacity: 0.45;
+    /* په موبایل کې انیمیشن لا نرم او کم مصرف وي */
+    animation-duration: 180s;
+  }
+
+  body::after {
+    opacity: 0.35;
+    animation-duration: 12s, 140s;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION (ACCESSIBILITY)
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  body::after {
+    animation: none !important;
+  }
+}
