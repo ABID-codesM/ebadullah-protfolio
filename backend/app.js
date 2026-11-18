@@ -1,13 +1,13 @@
+import express from "express";
+import cors from "cors";
+import helmet from "helmet";
 import cookieParser from "cookie-parser";
+
 import dashboardRoutes from "./src/routes/dashboard.routes.js";
 import messagesRoutes from "./src/routes/messages.routes.js";
 import repliesRoutes from "./src/routes/replies.routes.js";
 import emailsRoutes from "./src/routes/emails.routes.js";
 import authRoutes from "./src/routes/auth.routes.js";
-import express from "express";
-import cors from "cors";
-import helmet from "helmet";
-
 import contactRoutes from "./src/routes/contact.routes.js";
 
 import { notFound, errorHandler } from "./src/middleware/error.middleware.js";
@@ -20,12 +20,12 @@ app.use(helmet());
 // CORS Configuration
 const allowedOrigins = (process.env.FRONTEND_URL || "http://localhost:5173")
   .split(",")
-  .map((origin) => origin.trim());
+  .map((origin) => origin.trim().replace(/\/$/, ""));
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (!origin || allowedOrigins.includes(origin.replace(/\/$/, ""))) {
         return callback(null, true);
       }
 

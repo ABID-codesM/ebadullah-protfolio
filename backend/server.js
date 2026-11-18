@@ -8,28 +8,35 @@ import {
   startEmailRetryWorker,
   stopEmailRetryWorker,
 } from "./src/services/emailRetry.worker.js";
-import { startReplyRetryWorker } from "./src/services/replyRetry.worker.js";
+
+import {
+  startReplyRetryWorker,
+  stopReplyRetryWorker,
+} from "./src/services/replyRetry.worker.js";
 
 const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
+  let server;
+  let isShuttingDown = false;
+
   try {
     // Test Database Connection
     await pool.query("SELECT 1");
 
     console.log("PostgreSQL connected successfully.");
 
-    // Start Email Retry Worker
+    // Start Background Workers
     startEmailRetryWorker();
     startReplyRetryWorker();
 
-    const server = app.listen(PORT, () => {
-      console.log(`Server running on http://localhost:${PORT}`);
+    // Start Express Server
+    server = app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
       console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
     });
 
-    let isShuttingDown = false;
-
+    // Graceful Shutdown
     const shutdown = (signal) => {
       if (isShuttingDown) return;
 
@@ -39,11 +46,16 @@ const startServer = async () => {
 
       server.close(async () => {
         try {
+          // Stop Background Workers
           await stopEmailRetryWorker();
+          await stopReplyRetryWorker();
 
+          // Close Database Connections
           await pool.end();
 
-          console.log("Server, Email Worker, and database connections closed.");
+          console.log(
+            "Server, Background Workers, and Database Connections closed.",
+          );
 
           process.exit(0);
         } catch (error) {
@@ -59,7 +71,13 @@ const startServer = async () => {
   } catch (error) {
     console.error("Failed to start server:", error.message);
 
-    await pool.end();
+    try {
+      await stopEmailRetryWorker();
+      await stopReplyRetryWorker();
+      await pool.end();
+    } catch (shutdownError) {
+      console.error("Startup cleanup error:", shutdownError.message);
+    }
 
     process.exit(1);
   }
