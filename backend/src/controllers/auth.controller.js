@@ -7,10 +7,17 @@ const COOKIE_NAME = process.env.ADMIN_COOKIE_NAME || "portfolio_admin_token";
 const getCookieOptions = () => ({
   httpOnly: true,
   secure: process.env.NODE_ENV === "production",
-  sameSite: "lax",
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
   path: "/",
   maxAge: 24 * 60 * 60 * 1000,
 });
+// const getCookieOptions = () => ({
+//   httpOnly: true,
+//   secure: process.env.NODE_ENV === "production",
+//   sameSite: "lax",
+//   path: "/",
+//   maxAge: 24 * 60 * 60 * 1000,
+// });
 
 const createToken = (admin) => {
   if (!process.env.JWT_SECRET) {
@@ -108,9 +115,16 @@ export const logout = (req, res) => {
   res.clearCookie(COOKIE_NAME, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     path: "/",
   });
+  // export const logout = (req, res) => {
+  //   res.clearCookie(COOKIE_NAME, {
+  //     httpOnly: true,
+  //     secure: process.env.NODE_ENV === "production",
+  //     sameSite: "lax",
+  //     path: "/",
+  //   });
 
   return res.status(200).json({
     success: true,
