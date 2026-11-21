@@ -231,12 +231,12 @@ export const getMessageById = async (req, res, next) => {
 export const updateMessageReadStatus = async (req, res, next) => {
   try {
     const id = getMessageId(req.params.id);
-    const { isRead } = req.body;
+    const { is_Read } = req.body;
 
-    if (!id || typeof isRead !== "boolean") {
+    if (!id || typeof is_Read !== "boolean") {
       return res.status(400).json({
         success: false,
-        message: "A valid ID and boolean isRead value are required.",
+        message: "A valid ID and boolean is_Read value are required.",
       });
     }
 
@@ -255,7 +255,7 @@ export const updateMessageReadStatus = async (req, res, next) => {
         WHERE id = $1 AND deleted_at IS NULL
         RETURNING id, status, is_read
       `,
-      [id, isRead],
+      [id, is_Read],
     );
 
     if (result.rowCount === 0) {

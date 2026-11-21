@@ -174,14 +174,14 @@ const Messages = () => {
       setReplies(Array.isArray(replyData) ? replyData : []);
 
       // Mark unread messages as read
-      if (!detail.is_read) {
+      if (!detail.is_Read) {
         await api.patch(`/messages/${message.id}/read`, {
-          is_read: true,
+          is_Read: true,
         });
 
         setSelectedMessage((previous) => ({
           ...previous,
-          is_read: true,
+          is_Read: true,
         }));
 
         fetchMessages();
@@ -257,12 +257,12 @@ const Messages = () => {
 
         mark_read: () =>
           api.patch(`/messages/${messageId}/read`, {
-            is_read: true,
+            is_Read: true,
           }),
 
         mark_unread: () =>
           api.patch(`/messages/${messageId}/read`, {
-            is_read: false,
+            is_Read: false,
           }),
       };
 
@@ -625,7 +625,7 @@ const Messages = () => {
                 {messages.map((message) => (
                   <tr
                     key={message.id}
-                    className={!message.is_read ? "unread-row" : ""}
+                    className={!message.is_Read ? "unread-row" : ""}
                   >
                     <td>
                       <input
@@ -644,7 +644,7 @@ const Messages = () => {
 
                     <td>
                       <div className="messages-subject-cell">
-                        {!message.is_read && (
+                        {!message.is_Read && (
                           <span className="messages-unread-dot" />
                         )}
                         {message.subject}
@@ -942,7 +942,7 @@ const Messages = () => {
                       <button
                         onClick={() =>
                           handleSingleAction(
-                            selectedMessage.is_read
+                            selectedMessage.is_Read
                               ? "mark_unread"
                               : "mark_read",
                             selectedMessage.id,
@@ -950,7 +950,7 @@ const Messages = () => {
                         }
                         disabled={actionLoading}
                       >
-                        Mark as {selectedMessage.is_read ? "Unread" : "Read"}
+                        Mark as {selectedMessage.is_Read ? "Unread" : "Read"}
                       </button>
 
                       <button

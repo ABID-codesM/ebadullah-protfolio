@@ -64,9 +64,17 @@ export default function EmailManagement() {
       const response = await api.get("/emails/stats");
 
       if (response.data?.success) {
+        // setStats({
+        //   ...initialStats,
+        //   ...response.data.data,
+        // });
+        const statsData = response.data.data;
         setStats({
-          ...initialStats,
-          ...response.data.data,
+          total: statsData.total_emails || 0,
+          sent: statsData.sent_emails || 0,
+          pending: statsData.pending_emails || 0,
+          failed: statsData.failed_emails || 0,
+          unknown: statsData.failed_emails || 0,
         });
       }
     } catch (err) {
@@ -126,7 +134,7 @@ export default function EmailManagement() {
   }, [fetchEmails]);
 
   const handleRetry = async (email) => {
-    const key = "${email.email_type}-${email.id}";
+    const key = `${email.email_type}-${email.id}`;
 
     try {
       setRetryingId(key);

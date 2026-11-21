@@ -51,14 +51,14 @@
   top: -260px;
   left: -170px;
 
-  background: rgba(99, 230, 245, 0.12);
+  /* background: rgba(99, 230, 245, 0.12);*/
 }
 
 .hero-glow-two {
   right: -220px;
   bottom: -220px;
 
-  background: rgba(155, 140, 255, 0.12);
+  /* background: rgba(155, 140, 255, 0.12);*/
 }
 
 .hero-grid-pattern {

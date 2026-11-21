@@ -9,6 +9,7 @@ import repliesRoutes from "./src/routes/replies.routes.js";
 import emailsRoutes from "./src/routes/emails.routes.js";
 import authRoutes from "./src/routes/auth.routes.js";
 import contactRoutes from "./src/routes/contact.routes.js";
+import visitorsRoutes from "./src/routes/visitors.routes.js";
 
 import { notFound, errorHandler } from "./src/middleware/error.middleware.js";
 
@@ -62,6 +63,7 @@ app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/messages", messagesRoutes);
 app.use("/api/replies", repliesRoutes);
 app.use("/api/emails", emailsRoutes);
+app.use("/api/visitors", visitorsRoutes);
 
 // 404 Handler
 app.use(notFound);

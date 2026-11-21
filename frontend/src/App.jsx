@@ -22,8 +22,11 @@ import Messages from "./admin/pages/Messages";
 import EmailManagement from "./admin/pages/EmailManagement";
 
 import "./admin/styles/admin.css";
+import { useVisitorTracking } from "./hooks/useVisitorTracking";
+import Visitors from "./admin/pages/Visitors";
 
 function Portfolio() {
+  useVisitorTracking();
   return (
     <>
       <Navbar />
@@ -59,7 +62,7 @@ function App() {
             <Route index element={<Dashboard />} />
 
             <Route path="analytics" element={<AdminSection />} />
-            <Route path="visitors" element={<AdminSection />} />
+            <Route path="visitors" element={<Visitors />} />
             <Route path="messages" element={<Messages />} />
             <Route path="emails" element={<EmailManagement />} />
             <Route path="projects" element={<AdminSection />} />
