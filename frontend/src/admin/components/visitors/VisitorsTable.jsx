@@ -44,7 +44,7 @@ const VisitorsTable = ({
 
   const columns = [
     { label: "Visitor", key: "visitor_id" },
-    { label: "Device", key: "device_type" },
+    { label: "Device", key: "last_device" },
     { label: "Browser", key: "browser" },
     { label: "OS", key: "os" },
     { label: "Visits", key: "total_sessions" },
@@ -110,7 +110,7 @@ const VisitorsTable = ({
               </tr>
             ) : (
               visitors.map((visitor) => {
-                const DeviceIcon = getDeviceIcon(visitor.device_type);
+                const DeviceIcon = getDeviceIcon(visitor.last_device);
 
                 return (
                   <tr key={visitor.id || visitor.visitor_id}>
@@ -139,13 +139,13 @@ const VisitorsTable = ({
                     <td>
                       <div className="visitor-device-cell">
                         <DeviceIcon size={17} />
-                        <span>{visitor.device_type || "Unknown"}</span>
+                        <span>{visitor.last_device || "Unknown"}</span>
                       </div>
                     </td>
 
-                    <td>{visitor.browser || "Unknown"}</td>
+                    <td>{visitor.last_browser || "Unknown"}</td>
 
-                    <td>{visitor.os || "Unknown"}</td>
+                    <td>{visitor.last_os || "Unknown"}</td>
 
                     <td>
                       <span className="visitor-number-badge">
